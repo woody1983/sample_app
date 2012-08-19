@@ -143,18 +143,3 @@ describe "StaticPages Method2" do
  
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
