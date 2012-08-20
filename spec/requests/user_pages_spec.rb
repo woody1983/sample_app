@@ -12,16 +12,17 @@ describe "User pages" do
   end
 
   describe "Profile page" do
-    let(:user) { FactoryGirl.create(:user) }
-    before { visit user_path(user) }
-    it {should have_selector('h1', text: user.name)}
-    it {should have_selector('title', text: user.name)}
+    let(:demo_user) { FactoryGirl.create(:user) }
+    before { visit user_path(demo_user) }
+      it {should have_selector('h1', text: demo_user.name)}
+      it {should have_selector('title', text: demo_user.name)}
   end
+  #FactoryGirl 是模拟了一个user model的对象
 
   describe "signup" do
     before { visit signup_path }
     let(:submit) { "Create my account" }
-
+    #把按钮let出来
     describe "with invalid information" do
       it "should not create a user" do
         expect { click_button submit }.not_to change(User, :count)
