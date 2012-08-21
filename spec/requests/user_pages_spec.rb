@@ -52,6 +52,8 @@ describe "User pages" do
         fill_in "Password",     with: "foobar"
         fill_in "Confirmation", with: "foobar"
       end
+     # let(:user) { FactoryGirl.create(:user) }
+     # before { valid_signin(user) }
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
       end
@@ -62,10 +64,10 @@ describe "User pages" do
 	it { should have_selector('title', text: user.name) }
 	it { should have_selector('h1', text: user.name) }
 	it { should have_selector('div.alert.alert-success', text: 'Welcome') }
+        it { should have_link('Sign out') }
       end
 
     end #with valid information
-
   end #signup
 
 end #User pages
