@@ -18,6 +18,16 @@ describe "User pages" do
       it {should have_selector('title', text: demo_user.name)}
   end
   #FactoryGirl 是模拟了一个user model的对象
+  describe "Factory Girl" do
+    before { @user_fg = FactoryGirl.create(:user) }
+    before { visit user_path(@user_fg) }
+      it {should have_selector('h1', text: @user_fg.name)}
+  end
+
+  describe "Factory Girl 2" do
+    before { visit user_path(FactoryGirl.create(:user)) }
+      it {should_not have_selector('h1',text:'Sign up')}
+  end
 
   describe "signup" do
     before { visit signup_path }
