@@ -1,6 +1,7 @@
 module SessionsHelper
   def sign_in(user)
     cookies.permanent[:remember_token] = user.remember_token
+    # if you don't need cookies method,pls comment it!
     self.current_user = user
   end
   def current_user=(user) 
