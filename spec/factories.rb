@@ -7,6 +7,10 @@ FactoryGirl.define do
     sequence(:email) {|n| "Person_#{n}@example.com"}
     password "foobar"
     password_confirmation "foobar"
+    #--/ 我是权限分割的管理员
+    factory :admin do
+      admin true
+    end
   end
 end
 #before(:all) { 30.times { FactoryGirl.create(:user) } }

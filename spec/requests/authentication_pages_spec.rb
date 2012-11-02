@@ -60,17 +60,25 @@ describe "AuthenticationPages" do
       	end#in the Users controller
     end#for non-signed-in users
     describe "as wrong user" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user2) { FactoryGirl.create(:user) }
       let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
-      before { sign_in user }
+      before { sign_in user2 }
+
+      describe "visiting self edit pages" do
+        before { visit edit_user_path(user2) }
+        it { should have_selector('h1', text:'Update your profile') } #访问自己的编辑页面应该是ok的
+      end #其实这一步可以证明user2已经登陆成功了 
 
       describe "visiting Users#edit page" do
-        before { visit edit_user_path(wrong_user) }
+        before { visit edit_user_path(wrong_user) }#访问别人编辑页面的时候应该是失败的
         it { should_not have_selector('title', text: full_title('Edit user')) }
+        it { should have_selector('title', text: full_title('')) }
       end
 
       describe "submitting a PUT request to the Users#update action" do
         before { put user_path(wrong_user) }
+        it { should_not have_link('Sign in', href: signin_path) } #如果登陆成功的话 应该会看不到sign－in的链接的
+        it { should have_link('Sign out', href: signout_path) } #看的到sign－out ，并且看不到sign-in的链接时也证明已经处于登陆状态了
         specify { response.should redirect_to(root_path) }
       end
     end
@@ -94,7 +102,19 @@ describe "AuthenticationPages" do
         end
       end
     end#for non-signed-in users
-    
+
+    #非admin用户是无法删除别的user的
+    describe "as non-admin user" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:non_admin) { FactoryGirl.create(:user) }
+
+      before { sign_in non_admin } 
+      #使用非admin用户登陆
+      describe "submitting a DELETE request to the Users#destroy action" do
+        before { delete user_path(user) } #当提交一个delete请求的时候应该被转回首页
+        specify { response.should redirect_to(root_path) }        
+      end
+    end
 
   end#authorization
 

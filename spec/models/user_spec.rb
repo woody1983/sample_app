@@ -9,6 +9,7 @@
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
 #  remember_token  :string(255)
+#  admin           :boolean
 #
 
 require 'spec_helper'
@@ -26,7 +27,9 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
+  it { should respond_to(:admin) } #Tests for an admin attribute. 
   it { should respond_to(:authenticate) }  
+  it { should_not be_admin } #Tests for an admin attribute. admin属性不应该是True
   it { should be_valid }
 
   describe "when name is not present"do
@@ -122,6 +125,18 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  #-- 是我，无聊的注释条
+  #---/ 设置admin属性为True
+  describe "with admin attribute set to 'true'" do
+    before do
+      @user.save!
+      @user.toggle!(:admin)
+      #--/ toggle! 方法可以让一个属性从false变成true
+    end
+
+    it { should be_admin }
   end
 
 end

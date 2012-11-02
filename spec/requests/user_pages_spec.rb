@@ -120,10 +120,30 @@ describe "User pages" do
 	it { should have_selector('div.pagination') } 
        it "should list each user" do
          User.paginate(page: 1).each do |user|
-          page.should have_selector('li',text:user.name)
+          page.should have_selector('li',text:user.name)#当前这一面应该有该user
          end 
        end#should list each user
      end#pagination
+     describe "delete links" do
+      #admin可以看到delete链接
+      it { should_not have_link('delete') }
+
+      describe "as an admin user" do
+        let(:admin) { FactoryGirl.create(:admin) } #创建一个admin的FG用户 并访问user的index
+        before do
+          sign_in admin
+          visit users_path
+        end
+
+        it { should have_link('delete', href: user_path(User.first)) }
+        it "should be able to delete another user" do
+          #delete一个user 会造成user信息少一个
+          expect { click_link('delete') }.to change(User, :count).by(-1)
+        end
+        # 无法删除自己
+        it { should_not have_link('delete', href: user_path(admin)) }
+      end
+    end#delete links
   end#index
 
 end #User pages
