@@ -4,6 +4,7 @@ module SessionsHelper
     session[:current_user_id] = user.id
     cookies.permanent[:remember_token] = user.remember_token
     current_user = user
+    #redirect_to current_user
   end
 
   def signed_in?
@@ -27,6 +28,7 @@ module SessionsHelper
     current_user = nil
     session[:current_user_id] = nil
     cookies.delete(:remember_token)
+    session[:return_to] = nil
   end
 
   def store_location

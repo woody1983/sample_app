@@ -99,8 +99,22 @@ describe "AuthenticationPages" do
           it "should render the desired protected page" do
             page.should have_selector('title', text: 'Edit user')
           end
-        end
-      end
+           describe "when signing in again" do
+            before do
+              #delete signout_path
+              click_link "Sign out"
+              #visit signin_path
+              click_link "Sign in"
+              fill_in "Email",    with: user.email
+              fill_in "Password", with: user.password
+              click_button "Sign in"
+            end#when signing in again"
+            it "should render the default (profile) page" do
+              page.should have_selector('title', text: user.name) 
+            end
+          end#should render the desired protected page
+        end#after signing in
+      end#when attempting to visit a protected page
     end#for non-signed-in users
 
     #非admin用户是无法删除别的user的
