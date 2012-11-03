@@ -115,6 +115,19 @@ describe "AuthenticationPages" do
           end#should render the desired protected page
         end#after signing in
       end#when attempting to visit a protected page
+
+      describe "in the Microposts controller" do
+
+        describe "submitting to the create action" do
+          before { post microposts_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete micropost_path(FactoryGirl.create(:micropost)) }
+          specify { response.should redirect_to(signin_path) }
+        end
+      end#in the Microposts controller
     end#for non-signed-in users
 
     #非admin用户是无法删除别的user的

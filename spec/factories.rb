@@ -12,6 +12,12 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :micropost do
+    content "Lorem ipsum"
+    user
+  end
+
 end
 #before(:all) { 30.times { FactoryGirl.create(:user) } }
 #在测试之前先创建30个测试用户数据
