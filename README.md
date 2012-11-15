@@ -6,6 +6,9 @@ $ bundle exec rake db:populate
 $ bundle exec rake db:test:prepare
 ```
 
+### Annotate with database 
+> bundle exec annotate
+
 ### Faker
 > http://rubydoc.info/github/stympy/faker/master/frames
 

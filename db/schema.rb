@@ -11,7 +11,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103055105) do
+ActiveRecord::Schema.define(:version => 20121115061452) do
+
+  create_table "circles", :force => true do |t|
+    t.string   "circle_desc"
+    t.integer  "database_id"
+    t.integer  "table_id"
+    t.integer  "circle_source"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "columns", :force => true do |t|
+    t.string   "column_name"
+    t.string   "column_type"
+    t.string   "column_size"
+    t.string   "column_desc"
+    t.string   "column_null"
+    t.string   "column_key"
+    t.string   "column_default"
+    t.integer  "table_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "columns", ["table_id"], :name => "index_columns_on_table_id"
+
+  create_table "databases", :force => true do |t|
+    t.string   "db_name"
+    t.string   "db_project"
+    t.integer  "db_user"
+    t.integer  "db_pm"
+    t.string   "db_desc"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -21,6 +55,16 @@ ActiveRecord::Schema.define(:version => 20121103055105) do
   end
 
   add_index "microposts", ["user_id", "created_at"], :name => "index_microposts_on_user_id_and_created_at"
+
+  create_table "tables", :force => true do |t|
+    t.string   "table_name"
+    t.string   "table_desc"
+    t.integer  "database_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "tables", ["database_id"], :name => "index_tables_on_database_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

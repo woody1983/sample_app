@@ -1,0 +1,49 @@
+<h1>DataBases List</h1>
+
+<table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>[+]</th>
+                  <th>DB Name</th>
+                  <th>Project Name</th>
+                  <th>Project Manager</th>
+                  <th>DBA</th>
+                </tr>
+              </thead>
+
+              <tbody>
+<%  @databases.each do |database| %>
+                <tr>
+                  <td><%= database.id %></td>
+                  <td><%= link_to database.db_name, database %></td>
+                  <td><%= database.db_project %></td>
+                  <!-- <td><%= database.db_pm %></td> -->
+                  <!-- <td><%= database.db_user %></td>  -->
+<% @database_pm_user = User.find(database.db_user) %>
+<td><%= @database_pm_user.name %></td>
+<% @database_db_user = User.find(database.db_user) %>
+<td><%= @database_db_user.name %></td>
+                </tr>
+<% end %>
+              </tbody>
+
+            </table>
+<!-- 是我,撑场面的注释条君 -->
+<div id="modalbackdroptrue" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modalbackdroptrue" >&times;</a>
+              <h3>是我,撑场面的注释条君</h3>
+            </div>
+            <div class="modal-body">
+              <h4>是我，撑场面的Demo君而已</h4>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn" data-dismiss="modal" >关闭</a>
+              <a href="#" class="btn btn-primary">保存更改</a>
+            </div>
+</div>
+         
+          <a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modalbackdroptrue" >Demo</a> <br />
+
+   
+

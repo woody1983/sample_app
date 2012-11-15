@@ -49,7 +49,7 @@ describe "AuthenticationPages" do
       end
     #-----------------填写有效信息在指定的栏位上-------------------------↑----------------------------------------+-[id:005]
       it { should have_selector('title',text: user.name) } #title have be view your username
-      it { should have_link('Users', href: users_path) } #header have be view the link.
+      ##it { should have_link('Users', href: users_path) } #header have be view the link.
       it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) } 
       it { should have_link('Sign out', href: signout_path) }

@@ -1,0 +1,19 @@
+<h1>Table Admin</h1>
+<h2>Edit table:</h2>
+<div class="row">
+  <div class="span6 offset3">
+
+<%= form_for(@tables) do |f| %>
+
+      <%= f.label :table_name %>
+      <%= f.text_field :table_name %>
+
+      <%= f.label :table_desc %>
+      <%= f.text_area :table_desc, "rows" => 3 %>
+
+
+      <%= f.submit "Update Tables", class: "btn btn-large btn-primary" %>
+<% end %>
+  
+  </div>
+</div>

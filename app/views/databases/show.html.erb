@@ -1,0 +1,123 @@
+<h1>Database Status</h1>
+
+
+
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Database Name</th>
+                  <th>Project</th>
+                  <th>Last modify change</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="success">
+                  <td><i class="icon-signal"></i></td>
+                  <td><%= @databases.db_name =%> </td>
+                  <td><%= @databases.db_project =%> </td>
+                  <td><%= @databases.updated_at =%> </td>
+                </tr>
+                <tr class="error">
+                  <td>2</td>
+                  <td>TB - Monthly</td>
+                  <td>02/04/2012</td>
+                  <td>Declined</td>
+                </tr>
+                <tr class="warning">
+                  <td>3</td>
+                  <td>TB - Monthly</td>
+                  <td>03/04/2012</td>
+                  <td>Pending</td>
+                </tr>
+                <tr class="info" >
+                  <td>4</td>
+                  <td>TB - Monthly</td>
+                  <td>04/04/2012</td>
+                  <td>Call in to confirm</td>
+                </tr>
+              </tbody>
+            </table>
+
+
+<h2>Table List:</h2>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Table Name</th>
+                  <th>Table Desc</th>
+                  <th>Last modify change</th>
+                </tr>
+              </thead>
+              <tbody>
+<% @databases.tables.each do |table| %>
+                <tr >
+                  <td><%= table.id =%> </td>
+                  <td><%= link_to table.table_name, table %></td>
+                  
+                  <td><%= table.table_desc =%> </td>
+                  <td><%= table.updated_at =%> </td>
+                </tr>
+<% end %>
+              </tbody>
+            </table>
+
+<h2>Circle Table:</h2>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Table Name</th>
+                  <th>Data Source</th>
+                  <th>Table Desc</th>
+                  <th>Last modify change</th>
+                </tr>
+              </thead>
+              <tbody>
+<% @databases.circles.each do |circle| %>
+                <tr >
+                  <td><%= circle.id =%> </td>
+                  <% tables_circle = Table.find(circle.table_id)  %>
+                  <td><%= link_to tables_circle.table_name, tables_circle %></td>
+                  <% databases_circle = Database.find(circle.circle_source)  %>
+                  <td><%= link_to databases_circle.db_name, databases_circle %></td>
+                  <td><%= circle.circle_desc =%> </td>
+                  <td><%= circle.updated_at =%> </td>
+                </tr>
+<% end %>
+              </tbody>
+            </table>
+
+
+
+<h2>Import Table:</h2>
+
+<% @databases_list.each do |database| %>
+<%= database.db_name =%></br>
+<% end %>
+
+<% @databases.tables.each do |tables_list| %>
+<%= tables_list.table_name =%></br>
+<% end %>
+
+<h2>Create table:</h2>
+<div class="row">
+  <div class="span6 offset3">
+<%= form_for([@databases, @databases.tables.build]) do |f| %>
+
+      <%= f.label :table_name %>
+      <%= f.text_field :table_name %>
+
+      <%= f.label :table_desc %>
+      <%= f.text_area :table_desc, "rows" => 3 %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+  </div>
+    </div>

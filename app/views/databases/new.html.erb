@@ -1,0 +1,28 @@
+<h1>Databases Admin</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+
+<%= form_for(@database) do |f| %>
+
+      <%= f.label :db_name %>
+      <%= f.text_field :db_name %>
+
+      <%= f.label :db_project %>
+      <%= f.text_field :db_project %>
+
+      <%= f.label :db_user %>
+      <%= f.text_field :db_user  %>
+
+      <%= f.label :db_pm %>
+      <%= f.text_field :db_pm %>
+
+      <%= f.label :db_desc %>
+      <%= f.text_area :db_desc, "rows" => 3 %>
+
+
+
+      <%= f.submit "Create Databases", class: "btn btn-large btn-primary" %>
+<% end %>
+  </div>
+</div>

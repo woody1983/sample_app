@@ -1,0 +1,199 @@
+<h1>Table Information</h1>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th><i class="icon-signal"></i></th>
+                  <th>Table Name</th>
+                  <th>Desc</th>
+                  <th>Last modify change</th>
+                  <th>Modify or Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="success">
+                  <td><%= @tables.id =%> </td>
+                  <td><%= @tables.table_name =%> </td>
+                  <td><%= @tables.table_desc =%> </td>
+                  <td><%= @tables.updated_at =%> </td>
+                 <td><%= link_to 'Edit', edit_table_path(@tables) %> / <%= link_to 'Destroy', @tables, :confirm => 'Are you sure?',:method => :delete %></td>
+                </tr>
+              </tbody>
+
+              <thead>
+                <tr>
+                  <th><i class="icon-refresh"></i></th>
+                  <th>Circle info</th>
+                  <th>Sync type</th>
+                  <th>Last modify change</th>
+                  <th>Modify or Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @tables.circles.each do |circle| %>
+                <tr class="circle">
+
+                  <% databases_circle = Database.find(circle.database_id)  %>
+                  <td><%= circle.id =%> </td>
+                  <td><%= link_to databases_circle.db_name , databases_circle =%></td>
+                  <td><%= circle.circle_desc =%></td>
+                  <td><%= circle.updated_at =%></td>
+                <td><%= link_to 'Edit', edit_table_path(@tables) %> / <%= link_to 'Destroy', @tables, :confirm => 'Are you sure?',:method => :delete %>
+                </tr>
+<% end %>
+              </tbody>
+
+            </table>
+<a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modalbackdroptrue" >Create Circle</a> <br />
+
+ 
+
+
+<h2>Column List:</h2>
+<div class="bs-docs-example">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Null</th>
+                  <th>Key</th>
+                  <th>Default</th>
+                  <th>Desc</th>
+                  <th>Last modify change</th>
+                </tr>
+              </thead>
+              <tbody>
+<% @tables.columns.each do |column| %>
+                <tr>
+                  <td><%= column.id =%> </td>
+                  <td><%= column.column_name =%></td>
+                  <td><%= column.column_type =%></td>
+                  <td><%= column.column_null =%></td>
+                  <td><%= column.column_key =%></td>
+                  <td><%= column.column_default =%></td>
+                  <td><%= column.column_desc =%> </td>
+                  <td><%= column.updated_at =%> </td>
+                </tr>
+<% end %>
+              </tbody>
+            </table>
+</div>
+
+<!-- >
+modal test
+<-->
+
+  
+<!-- 是我,撑场面的注释条君 -->
+<div id="modalbackdroptrue" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modalbackdroptrue" >&times;</a>
+              <h3>是我,撑场面的注释条君</h3>
+            </div>
+            <div class="modal-body">
+              
+<%= form_for([@tables, @tables.circles.build]) do |fc| %>
+      <%= fc.label :circle_desc %>
+      <%= fc.text_field :circle_desc %>
+
+<select id="circle_database_id" name="circle[database_id]" >
+                <% @databases.each do |databases| %>
+                  <option value=<%= databases.id =%>><%= databases.db_name =%></option>
+                <% end %>
+</select>
+<span class="label label-info">Info:这里讲创建表和表之间的同步关系。</span>
+<%= hidden_field_tag("circle[circle_source]", @tables.database_id) %>
+<%= hidden_field_tag(:table_id, @tables.id) %>
+
+</div>
+
+            <div class="modal-footer">
+              <a href="#" class="btn " data-dismiss="modal" >colse</a>
+              <%= fc.submit "Create Circle", class: "btn btn-primary" %>
+             <!-- <a href="#" class="btn btn-primary"   >保存更改</a> -->
+            </div>
+            <% end %>   
+</div><!-- 遥相呼应的注释君 1 -->
+      
+          
+
+
+
+
+
+
+
+
+<!-- 还是我,撑场面的注释条君，划胖吗？ -->
+
+
+
+<h2>Create Circle:</h2>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for([@tables, @tables.circles.build]) do |fc| %>
+      <%= fc.label :circle_desc %>
+      <%= fc.text_field :circle_desc %>
+
+<select id="circle_database_id" name="circle[database_id]" >
+                <% @databases.each do |databases| %>
+                  <option value=<%= databases.id =%>><%= databases.db_name =%></option>
+                <% end %>
+</select>
+
+<%= hidden_field_tag("circle[circle_source]", @tables.database_id) %>
+<%= hidden_field_tag(:table_id, @tables.id) %>
+<div class="actions">
+    <%= fc.submit %>
+  </div>
+<% end %>
+</div>
+    </div>
+
+
+<h2>Add a Column:</h2>
+<div class="row">
+  <div class="span6 offset3">
+<%= form_for([@tables, @tables.columns.build]) do |f| %>
+
+      <%= f.label :column_name %>
+      <%= f.text_field :column_name %>
+
+<%= f.label :column_type %>     
+<%= f.text_field :column_type %>
+
+<!-- 
+<select id="column_column_type" name="column[column_type]" >
+                <option value="int">Int</option>
+                <option value="varchar">Varchar</option>
+                <option value="float">Float</option>
+                <option value="enum">Enum</option>
+                <option value="date">Date</option>
+                <option value="time">Time</option>
+                <option value="timestamp">DateTime</option>
+</select>
+-->
+
+      <%= f.label :column_size_or_value %>
+      <%= f.text_field :column_size %>
+
+      <%= f.label :column_if_null %>
+      <%= f.text_field :column_null %>
+
+      <%= f.label :column_key %>
+      <%= f.text_field :column_key %>
+
+      <%= f.label :column_default %>
+      <%= f.text_field :column_default %>
+
+      <%= f.label :column_desc %>
+      <%= f.text_area :column_desc, "rows" => 3 %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+  </div>
+    </div>
