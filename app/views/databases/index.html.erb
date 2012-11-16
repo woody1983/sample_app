@@ -4,29 +4,29 @@
               <thead>
                 <tr>
                   <th>[+]</th>
-                  <th>DB Name</th>
                   <th>Project Name</th>
+                  <th>Project Desc</th>
+                  <th>Version</th>
                   <th>Project Manager</th>
                   <th>DBA</th>
+                  <th>Last Modify</th>
                 </tr>
               </thead>
-
                        <tbody>
 <%  @databases.each do |database| %>
                 <tr>
                   <td><%= database.id %></td>
-                  <td><%= link_to database.db_name, database %></td>
-                  <td><%= database.db_project %></td>
-                  <!-- <td><%= database.db_pm %></td> -->
-                  <!-- <td><%= database.db_user %></td>  -->
-<% @database_pm_user = User.find(database.db_user) %>
-<td><%= @database_pm_user.name %></td>
-<% @database_db_user = User.find(database.db_user) %>
-<td><%= @database_db_user.name %></td>
+                  <td><%= link_to database.db_project, database %></td>
+                  <td><%= database.db_desc %></td>
+                  <td><%= database.db_version %></td>
+                    <% @database_pm_user = User.find(database.db_pm) %>
+                  <td><%= @database_pm_user.name %></td>
+                    <% @database_db_user = User.find(database.db_user) %>
+                  <td><%= @database_db_user.name %></td>
+                  <td><%= database.updated_at %></td>
                 </tr>
 <% end %>
               </tbody>
-
             </table>
 
 <% if admin_? %>

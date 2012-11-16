@@ -1,0 +1,24 @@
+<h2>Table List:</h2>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Table Name</th>
+                  <th>Table Desc</th>
+                  <th>Last modify change</th>
+                </tr>
+              </thead>
+              <tbody>
+<% @databases.tables.each do |table| %>
+                <tr >
+                  <td><%= table.id =%> </td>
+                  <td><%= link_to table.table_name, table %></td>
+
+                  <td><%= table.table_desc =%> </td>
+                  <td><%= table.updated_at =%> </td>
+                </tr>
+<% end %>
+              </tbody>
+            </table>
+

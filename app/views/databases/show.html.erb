@@ -1,4 +1,4 @@
-<h1>Database Status</h1>
+<h1>Database Info</h1>
 
 
 
@@ -28,6 +28,7 @@
                   <th>#</th>
                   <th>Database Name</th>
                   <th>Project</th>
+                  <th>Version</th>
                   <th>Last modify change</th>
                 </tr>
               </thead>
@@ -36,8 +37,10 @@
                   <td><i class="icon-signal"></i></td>
                   <td><%= @databases.db_name =%> </td>
                   <td><%= @databases.db_project =%> </td>
+                  <td><%= @databases.db_version =%> </td>
                   <td><%= @databases.updated_at =%> </td>
                 </tr>
+<!-- 
                 <tr class="error">
                   <td>2</td>
                   <td>TB - Monthly</td>
@@ -56,15 +59,27 @@
                   <td>04/04/2012</td>
                   <td>Call in to confirm</td>
                 </tr>
+-->
               </tbody>
             </table>
+<blockquote>
+<% @database_pm_user = User.find(@databases.db_pm) %>
+<div class="well"><%= @databases.db_desc  =%></div>
+<small class="pull-right"> Author: <%= @database_pm_user.name =%> | <%= @databases.updated_at =%></small>
+</blockquote>
+</br>
+
 <% if admin_? %>
 <a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modal_edit" >Edit Database</a>
 <a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modal_add_table" >Add Table</a>
 <% end %>
+
+<%= render "databases/table_list" %>
+<%= render "databases/circle" %>
+
 </div>
               <div class="tab-pane fade" id="profile">
-		<p><%= @databases.db_desc  =%></p>
+		<blockquote><p><%= @databases.db_desc  =%></p></blockquote>
               </div>
               <div class="tab-pane fade" id="dropdown1">
                 <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork t
@@ -84,58 +99,3 @@ ral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salv
 
 <%= render "databases/editdatabase" %>
 <%= render "databases/addtable" %>
-
-<h2>Table List:</h2>
-
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Table Name</th>
-                  <th>Table Desc</th>
-                  <th>Last modify change</th>
-                </tr>
-              </thead>
-              <tbody>
-<% @databases.tables.each do |table| %>
-                <tr >
-                  <td><%= table.id =%> </td>
-                  <td><%= link_to table.table_name, table %></td>
-                  
-                  <td><%= table.table_desc =%> </td>
-                  <td><%= table.updated_at =%> </td>
-                </tr>
-<% end %>
-              </tbody>
-            </table>
-
-<% if !@databases.circles.empty? %>
-<h2>Circle Table:</h2>
-
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Table Name</th>
-                  <th>Data Source</th>
-                  <th>Table Desc</th>
-                  <th>Last modify change</th>
-                </tr>
-              </thead>
-              <tbody>
-<% @databases.circles.each do |circle| %>
-                <tr >
-                  <td><%= circle.id =%> </td>
-                  <% tables_circle = Table.find(circle.table_id)  %>
-                  <td><%= link_to tables_circle.table_name, tables_circle %></td>
-                  <% databases_circle = Database.find(circle.circle_source)  %>
-                  <td><%= link_to databases_circle.db_name, databases_circle %></td>
-                  <td><%= circle.circle_desc =%> </td>
-                  <td><%= circle.updated_at =%> </td>
-                </tr>
-<% end %>
-              </tbody>
-            </table>
-
-<% end %>
-

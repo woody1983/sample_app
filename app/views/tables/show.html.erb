@@ -1,4 +1,4 @@
-<h1>Table Information</h1>
+<h1>Data Dictionary</h1>
 
             <table class="table">
               <thead>
@@ -37,7 +37,7 @@
 
                   <% databases_circle = Database.find(circle.database_id)  %>
                   <td><%= circle.id =%> </td>
-                  <td><%= link_to databases_circle.db_name , databases_circle =%></td>
+                  <td><%= link_to databases_circle.db_project , databases_circle =%></td>
                   <td><%= circle.circle_desc =%></td>
                   <td><%= circle.updated_at =%></td>
                <% if admin_? %> <td><%= link_to 'Edit', edit_table_path(@tables) %> / <%= link_to 'Destroy', @tables, :confirm => 'Are you sure?',:method => :delete %><% end %>
