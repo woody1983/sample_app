@@ -1,27 +1,27 @@
 <% provide(:title, @user.name) %>
 <div class="row">
 
-  <aside class="span4">
+<aside class="span4">
     <section>
       <h1>
-        <%= gravatar_for @user %>
+
        <%= @user.name %>
       </h1>
     </section>
     <span class="label label-info"><%= @user.name %></span></br>
-    <span class="label label-scuess"><%= session[:current_user_id]  =%></span>
+    <span class="label label-scuess"><%= session[:current_user_id] =%></span>
 
 
     <div class="btn-toolbar">
     <div class="btn-group">
-     
-    <a class="btn" href: root_path><i class="icon-home"></i></a>
-    <a class="btn" href="#"><i class="icon-heart"></i></a>
-    <a class="btn" href="#"><i class="icon-envelope"></i></a>
-    <a class="btn" href="#"><i class="icon-thumbs-up"></i></a>
-    </div>
+    <a class="btn" href=<%= root_path =%>><i class="icon-home"></i></a>
+    <a class="btn" href=<%= databases_path =%>><i class="icon-inbox"></i></a>
+    <a class="btn" href="#"><i class="icon-check"></i></a>
+    <a class="btn" href="#"><i class="icon-search"></i></a>
+</div>
     </div>
   </aside>
+
 <div class="span8">
     <% if @user.microposts.any? %>
       <h3>Microposts (<%= @user.microposts.count %>)</h3>

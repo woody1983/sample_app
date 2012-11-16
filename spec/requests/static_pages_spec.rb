@@ -153,7 +153,7 @@ describe "StaticPages Method2" do
   click_link "Sign up now!"
   page.should have_selector 'title', text: full_title('Sign up')
   page.should have_selector 'h1', text: 'Sign up'
-  click_link "Phoenix OA"
+  click_link "Phoenix Data"
   page.should have_selector 'title', text: full_title('')
   end
  

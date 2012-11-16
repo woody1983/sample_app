@@ -10,8 +10,9 @@ before_filter :admin_user, only: :destroy
   def create
     @user = User.new(params[:user])
     if @user.save
+      @user.microposts.create(content: "Welcome to the Phoenix Data Center")
       sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Welcome to the Phoenix Data Center!"
       redirect_to @user #Handle a srccessful save
     else
       render 'new'
@@ -20,6 +21,7 @@ before_filter :admin_user, only: :destroy
 
   def show
     @user = User.find(params[:id])
+    @micropost = current_user.microposts.build if signed_in?
     @microposts = @user.microposts.paginate(page: params[:page])
   end
 
