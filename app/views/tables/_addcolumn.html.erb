@@ -1,0 +1,37 @@
+<div id="modal_column" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal_column" >&times;</a>
+              <h3>Add column</h3>
+            </div>
+            <div class="modal-body">
+	
+	
+<%= form_for([@tables, @tables.columns.build]) do |f| %>
+
+      <%= f.label :column_name %>
+      <%= f.text_field :column_name %>
+
+<%= f.label :column_type %>
+<%= f.text_field :column_type %>
+
+      <%= f.label :column_size_or_value %>
+      <%= f.text_field :column_size %>
+
+      <%= f.label :column_if_null %>
+      <%= f.text_field :column_null %>
+
+      <%= f.label :column_key %>
+      <%= f.text_field :column_key %>
+
+      <%= f.label :column_default %>
+      <%= f.text_field :column_default %>
+
+      <%= f.label :column_desc %>
+      <%= f.text_area :column_desc, "rows" => 3 %>
+	  
+            <div class="modal-footer">
+              <a href="#" class="btn " data-dismiss="modal" >colse</a>
+              <%= f.submit "Add column", class: "btn btn-primary" %>
+            </div>
+<% end %>
+ </div> </div>

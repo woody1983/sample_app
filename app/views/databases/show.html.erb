@@ -58,7 +58,10 @@
                 </tr>
               </tbody>
             </table>
-
+<% if admin_? %>
+<a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modal_edit" >Edit Database</a>
+<a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modal_add_table" >Add Table</a>
+<% end %>
 </div>
               <div class="tab-pane fade" id="profile">
 		<p><%= @databases.db_desc  =%></p>
@@ -78,6 +81,9 @@ ral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salv
 
 <!-- HeiHei -->
 
+
+<%= render "databases/editdatabase" %>
+<%= render "databases/addtable" %>
 
 <h2>Table List:</h2>
 
@@ -103,6 +109,7 @@ ral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salv
               </tbody>
             </table>
 
+<% if !@databases.circles.empty? %>
 <h2>Circle Table:</h2>
 
             <table class="table table-striped">
@@ -130,32 +137,5 @@ ral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salv
               </tbody>
             </table>
 
-
-
-<h2>Import Table:</h2>
-
-<% @databases_list.each do |database| %>
-<%= database.db_name =%></br>
 <% end %>
 
-<% @databases.tables.each do |tables_list| %>
-<%= tables_list.table_name =%></br>
-<% end %>
-
-<h2>Create table:</h2>
-<div class="row">
-  <div class="span6 offset3">
-<%= form_for([@databases, @databases.tables.build]) do |f| %>
-
-      <%= f.label :table_name %>
-      <%= f.text_field :table_name %>
-
-      <%= f.label :table_desc %>
-      <%= f.text_area :table_desc, "rows" => 3 %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-  </div>
-    </div>

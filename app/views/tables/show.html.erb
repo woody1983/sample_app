@@ -7,7 +7,9 @@
                   <th>Table Name</th>
                   <th>Desc</th>
                   <th>Last modify change</th>
+                  <% if admin_? %>
                   <th>Modify or Delete</th>
+                  <% end %>
                 </tr>
               </thead>
               <tbody>
@@ -16,7 +18,7 @@
                   <td><%= @tables.table_name =%> </td>
                   <td><%= @tables.table_desc =%> </td>
                   <td><%= @tables.updated_at =%> </td>
-                 <td><%= link_to 'Edit', edit_table_path(@tables) %> / <%= link_to 'Destroy', @tables, :confirm => 'Are you sure?',:method => :delete %></td>
+                 <% if admin_? %><td><%= link_to 'Edit', edit_table_path(@tables) %> / <%= link_to 'Destroy', @tables, :confirm => 'Are you sure?',:method => :delete %></td><% end %>
                 </tr>
               </tbody>
 
@@ -26,7 +28,7 @@
                   <th>Circle info</th>
                   <th>Sync type</th>
                   <th>Last modify change</th>
-                  <th>Modify or Delete</th>
+                  <% if admin_? %><th>Modify or Delete</th><% end %>
                 </tr>
               </thead>
               <tbody>
@@ -38,15 +40,17 @@
                   <td><%= link_to databases_circle.db_name , databases_circle =%></td>
                   <td><%= circle.circle_desc =%></td>
                   <td><%= circle.updated_at =%></td>
-                <td><%= link_to 'Edit', edit_table_path(@tables) %> / <%= link_to 'Destroy', @tables, :confirm => 'Are you sure?',:method => :delete %>
+               <% if admin_? %> <td><%= link_to 'Edit', edit_table_path(@tables) %> / <%= link_to 'Destroy', @tables, :confirm => 'Are you sure?',:method => :delete %><% end %>
                 </tr>
 <% end %>
               </tbody>
 
             </table>
-<a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modalbackdroptrue" >Create Circle</a> <br />
-
- 
+<% if admin_? %>
+<a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modalbackdroptrue" >Create Circle</a> 
+<a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modal_column" >Add Column</a> <br />
+<% end %>
+<%= render "tables/addcolumn" %>
 
 
 <h2>Column List:</h2>
@@ -122,78 +126,3 @@ modal test
 
 
 
-
-
-
-
-<!-- 还是我,撑场面的注释条君，划胖吗？ -->
-
-
-
-<h2>Create Circle:</h2>
-<div class="row">
-  <div class="span6 offset3">
-    <%= form_for([@tables, @tables.circles.build]) do |fc| %>
-      <%= fc.label :circle_desc %>
-      <%= fc.text_field :circle_desc %>
-
-<select id="circle_database_id" name="circle[database_id]" >
-                <% @databases.each do |databases| %>
-                  <option value=<%= databases.id =%>><%= databases.db_name =%></option>
-                <% end %>
-</select>
-
-<%= hidden_field_tag("circle[circle_source]", @tables.database_id) %>
-<%= hidden_field_tag(:table_id, @tables.id) %>
-<div class="actions">
-    <%= fc.submit %>
-  </div>
-<% end %>
-</div>
-    </div>
-
-
-<h2>Add a Column:</h2>
-<div class="row">
-  <div class="span6 offset3">
-<%= form_for([@tables, @tables.columns.build]) do |f| %>
-
-      <%= f.label :column_name %>
-      <%= f.text_field :column_name %>
-
-<%= f.label :column_type %>     
-<%= f.text_field :column_type %>
-
-<!-- 
-<select id="column_column_type" name="column[column_type]" >
-                <option value="int">Int</option>
-                <option value="varchar">Varchar</option>
-                <option value="float">Float</option>
-                <option value="enum">Enum</option>
-                <option value="date">Date</option>
-                <option value="time">Time</option>
-                <option value="timestamp">DateTime</option>
-</select>
--->
-
-      <%= f.label :column_size_or_value %>
-      <%= f.text_field :column_size %>
-
-      <%= f.label :column_if_null %>
-      <%= f.text_field :column_null %>
-
-      <%= f.label :column_key %>
-      <%= f.text_field :column_key %>
-
-      <%= f.label :column_default %>
-      <%= f.text_field :column_default %>
-
-      <%= f.label :column_desc %>
-      <%= f.text_area :column_desc, "rows" => 3 %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-  </div>
-    </div>

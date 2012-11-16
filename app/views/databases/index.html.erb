@@ -11,7 +11,7 @@
                 </tr>
               </thead>
 
-              <tbody>
+                       <tbody>
 <%  @databases.each do |database| %>
                 <tr>
                   <td><%= database.id %></td>
@@ -28,6 +28,11 @@
               </tbody>
 
             </table>
+
+<% if admin_? %>
+          <a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modalbackdroptrue" >Create Database</a> <br />
+<% end %>
+
 <!-- 是我,撑场面的注释条君 -->
 <div id="modalbackdroptrue" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
@@ -35,15 +40,30 @@
               <h3>是我,撑场面的注释条君</h3>
             </div>
             <div class="modal-body">
-              <h4>是我，撑场面的Demo君而已</h4>
+
+<%= form_for(@database) do |f| %>
+
+      <%= f.label :db_name %>
+      <%= f.text_field :db_name %>
+
+      <%= f.label :db_project %>
+      <%= f.text_field :db_project %>
+
+      <%= f.label :db_pm %>
+      <%= f.text_field :db_pm %>
+
+      <%= f.label :db_user %>
+      <%= f.text_field :db_user %>
+
+      <%= f.label :db_desc %>
+      <%= f.text_area :db_desc, "rows" => 3 %>
+
             </div>
             <div class="modal-footer">
-              <a href="#" class="btn" data-dismiss="modal" >关闭</a>
-              <a href="#" class="btn btn-primary">保存更改</a>
+                 <%= f.submit "Create Databases", class: "btn btn-primary" %>
+                 <a href="#" class="btn" data-dismiss="modal" >Close</a>
+           <% end %>
             </div>
 </div>
-         
-          <a class="btn btn-primary btn-mini" id="backdroptrue" data-toggle="modal" href="#modalbackdroptrue" >Demo</a> <br />
-
-   
+<!-- create database -->
 
