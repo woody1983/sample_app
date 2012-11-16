@@ -8,6 +8,7 @@ SampleApp::Application.routes.draw do
   resources :databases do
     resources :tables
     resources :circles
+    resources :statuss
   end
 
   resources :tables do

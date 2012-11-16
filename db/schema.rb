@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116073217) do
+ActiveRecord::Schema.define(:version => 20121116101944) do
 
   create_table "circles", :force => true do |t|
     t.string   "circle_desc"
@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(:version => 20121116073217) do
     t.integer  "db_user"
     t.integer  "db_pm"
     t.string   "db_desc"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "db_version"
+    t.text     "db_configuration"
   end
 
   create_table "microposts", :force => true do |t|
@@ -56,6 +57,20 @@ ActiveRecord::Schema.define(:version => 20121116073217) do
   end
 
   add_index "microposts", ["user_id", "created_at"], :name => "index_microposts_on_user_id_and_created_at"
+
+  create_table "statuses", :force => true do |t|
+    t.string   "name"
+    t.string   "ip"
+    t.string   "port"
+    t.boolean  "slave_io"
+    t.boolean  "slave_sql"
+    t.integer  "database_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "dbtype"
+  end
+
+  add_index "statuses", ["database_id"], :name => "index_statuses_on_database_id"
 
   create_table "tables", :force => true do |t|
     t.string   "table_name"
