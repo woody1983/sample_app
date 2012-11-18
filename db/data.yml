@@ -1,0 +1,86 @@
+
+---
+users:
+  columns:
+  - id
+  - name
+  - email
+  - created_at
+  - updated_at
+  - password_digest
+  - remember_token
+  - admin
+  records: 
+  - - 1
+    - admin
+    - woody.xu@sha.phoenixintl.com.cn
+    - '2012-11-18 14:09:23.939266'
+    - '2012-11-18 14:09:23.939266'
+    - $2a$10$aqOKn.IBLWH9LLO5aG68eOt1RhvfdKbcHxpsErAWWEPfh2xJMJp86
+    - z4X49us6m59yIP63t0gYBg
+    - true
+
+---
+databases:
+  columns:
+  - id
+  - db_name
+  - db_project
+  - db_user
+  - db_pm
+  - db_desc
+  - created_at
+  - updated_at
+  - db_version
+  - db_configuration
+  records: 
+  - - 1
+    - _SHARE_DATA5
+    - ShareData5
+    - 1
+    - 1
+    - Basic Data System
+    - '2012-11-18 14:09:24.189771'
+    - '2012-11-18 14:09:24.189771'
+    - 
+    - 
+  - - 2
+    - _PIXOS2
+    - Pixos2
+    - 1
+    - 1
+    - Pixos2 System
+    - '2012-11-18 14:09:24.280905'
+    - '2012-11-18 14:09:24.280905'
+    - 
+    - 
+  - - 3
+    - RATE_BRIDGE
+    - Rate Bridge 3.1
+    - 1
+    - 1
+    - Data System
+    - '2012-11-18 14:09:24.382925'
+    - '2012-11-18 14:09:24.382925'
+    - 
+    - 
+  - - 4
+    - POM
+    - Po Managent
+    - 1
+    - 1
+    - PO System
+    - '2012-11-18 14:09:24.488557'
+    - '2012-11-18 14:09:24.488557'
+    - 
+    - 
+  - - 5
+    - ONLINE_BOOKING2
+    - Online Booking 2
+    - 1
+    - 1
+    - Booking System
+    - '2012-11-18 14:09:24.591008'
+    - '2012-11-18 14:09:24.591008'
+    - 
+    - 

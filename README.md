@@ -9,6 +9,17 @@ $ bundle exec rake db:test:prepare
 ### Annotate with database 
 > bundle exec annotate
 
+### Data Migration
+> gem install yaml_db
+
+```
+rake db:dump
+rake db:load
+```
+
+`/db/data.yaml`
+
+
 ### Faker
 > http://rubydoc.info/github/stympy/faker/master/frames
 
